@@ -3,15 +3,15 @@ const multer = require('multer');
 const Payment = require('../models/Payment');
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) { // Đường dẫn lưu file
+    destination: function (req, file, cb) { 
         cb(null, 'uploads/');
     },
-    filename: function (req, file, cb) { // Tên file sau khi lưu
+    filename: function (req, file, cb) { 
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 
-const upload = multer({ storage: storage }); // Sử lý các file tải lên
+const upload = multer({ storage: storage }); 
 
 exports.addPhone = async (req, res) => {
     try {
@@ -20,7 +20,6 @@ exports.addPhone = async (req, res) => {
             return res.status(400).send({ message: 'Mã số điện thoại đã tồn tại' });
         }
 
-        // Lấy thông tin file được upload
         const upload = req.file ? '/uploads/' + req.file.filename : null;
         const newPhone = new Phone({
             maSoDienThoai: req.body.maSoDienThoai,
@@ -44,7 +43,7 @@ exports.addPhone = async (req, res) => {
 
 exports.updatePhone = async (req, res) => {
     const maSoDienThoai = req.params.maSoDienThoai;
-    const updateData = req.body; // Dữ liệu từ form
+    const updateData = req.body; 
 
     try {
         const phone = await Phone.findOne({ maSoDienThoai: maSoDienThoai });
@@ -52,7 +51,6 @@ exports.updatePhone = async (req, res) => {
             return res.status(404).send({ message: 'Mã số điện thoại không tồn tại' });
         }
 
-        // Cập nhật thông tin từ req.body
         if (updateData.tenDienThoai) phone.tenDienThoai = updateData.tenDienThoai;
         if (updateData.hangDienThoai) phone.hangDienThoai = updateData.hangDienThoai;
         if (updateData.thongtincoban) phone.thongtincoban = updateData.thongtincoban;
@@ -156,6 +154,7 @@ exports.addToCart = async (req, res) => {
         res.status(500).send({ message: 'Lỗi khi thêm vào giỏ hàng', error: err.message });
     }
 };
+
 // Xóa sản phẩm khỏi giỏ hàng
 exports.removeFromCart = (req, res) => {
     const phoneId = req.params.maSoDienThoai;
@@ -171,6 +170,7 @@ exports.removeFromCart = (req, res) => {
         res.status(400).send({ message: 'Giỏ hàng trống' });
     }
 };
+
 // Cập nhật số lượng sản phẩm trong giỏ hàng
 exports.updateCartItem = (req, res) => {
     const phoneId = req.params.maSoDienThoai;
@@ -217,7 +217,7 @@ exports.handleCheckout = async (req, res) => {
     }
 };
 
-// sản phẩm theo hãng
+//Sản phẩm theo hãng
 exports.getIphones = async (req, res) => {
     try {
         const iphones = await Phone.find({ hangDienThoai: 'Iphone' });
