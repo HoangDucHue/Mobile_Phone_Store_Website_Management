@@ -20,13 +20,11 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// Cấu hình kết nối MongoDB cho phần quản lý điện thoại
 const mongoDB = 'mongodb://localhost:27017/phone_manage';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const dbMongo = mongoose.connection;
 dbMongo.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-// Cấu hình kết nối MySQL cho phần quản lý người dùng
 const dbConfig = {
     host: 'localhost',
     user: 'root',
@@ -44,8 +42,7 @@ app.use(async (req, res, next) => {
     next();
 });
 
-// Thiết lập middleware cơ bản
-app.use(express.json()); // Cho phép xử lý dữ liệu JSON trong body request
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
 app.set('view engine', 'ejs'); 
 app.use('/uploads', express.static('uploads'));
@@ -59,7 +56,7 @@ app.get('/', (req, res) => {
 
 app.get('/home', async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:8083/api/phones'); // Gọi API để lấy dữ liệu
+        const response = await axios.get('http://localhost:8083/api/phones'); 
         const phones = response.data;
         res.render('home', { phones: phones }); 
     } catch (error) {
@@ -70,9 +67,9 @@ app.get('/home', async (req, res) => {
 
 app.get('/logout', async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:8083/api/phones'); // Gọi API để lấy dữ liệu
+        const response = await axios.get('http://localhost:8083/api/phones'); 
         const phones = response.data;
-        res.render('logout', { phones: phones, user: req.session.user }); // Gửi dữ liệu điện thoại đến home
+        res.render('logout', { phones: phones, user: req.session.user }); 
     } catch (error) {
         console.error(error);
         res.send('Lỗi khi lấy dữ liệu điện thoại');
