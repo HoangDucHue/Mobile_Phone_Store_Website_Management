@@ -1,4 +1,5 @@
 const Phone = require('../models/Phone');
+// middleware để xử lý file upload (hình ảnh điện thoại)
 const multer = require('multer');
 const Payment = require('../models/Payment');
 

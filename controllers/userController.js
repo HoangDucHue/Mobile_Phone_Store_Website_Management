@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const secretKey = 'thuong@123456'; 
+const secretKey = process.env.JWT_SECRET; 
 
 exports.register = async (req, res) => {
+    // Lấy username, password, và role từ form đăng ký,nếu không có role, mặc định là "user"
     const { username, password, role = 'user' } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     // truy vấn 
