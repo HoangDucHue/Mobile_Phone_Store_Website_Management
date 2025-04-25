@@ -12,7 +12,7 @@ const port = 8083;
 const session = require('express-session');
 const Payment = require('./models/Payment');
 
-// Thiết lập session, quản lý tình trạng đăng nhap của người dùng
+// Thiết lập session, quản lý tình trạng đăng nhập của người dùng
 app.use(session({
     secret: 'secret',
     resave: false,
@@ -33,7 +33,7 @@ const dbConfig = {
     database: 'bt_big_manageaccount'
 };
 
-// Middleware để kết nối cơ sở dữ liệu MySQL
+// Middleware giúp khỏi phải kết nối MySQL thủ công mỗi lần
 app.use(async (req, res, next) => {
     if (!global.connection || global.connection.state === 'disconnected') {
         global.connection = await mysql.createConnection(dbConfig);
@@ -86,9 +86,7 @@ app.get('/register', (req, res) => {
 app.get('/index3', (req, res) => {
     res.render('index3');
 });
-app.get('/home', (req, res) => {
-    res.render('home');
-});
+
 app.get('/logout', (req, res) => {
     res.render('logout');
 });
