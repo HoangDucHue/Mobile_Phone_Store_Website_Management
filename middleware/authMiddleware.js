@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-// Khóa bí mật được sử dụng để ký và xác minh JWT.
-const SECRET_KEY = 'thuong@123456';
+const SECRET_KEY = process.env.JWT_SECRET;
 
 const authMiddleware = (req, res, next) => {
     try {
