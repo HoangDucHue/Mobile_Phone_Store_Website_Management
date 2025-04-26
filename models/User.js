@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/database'); 
 
+// Định nghĩa model User, tương ứng với bảng users trong cơ sở dữ liệu
 const User = sequelize.define('user', {
     username: {
         type: Sequelize.STRING,

@@ -26,6 +26,7 @@ router.post('/phones/updateCartItem/:maSoDienThoai', phoneController.updateCartI
 router.post('/phones/checkout', phoneController.handleCheckout);
 
 router.get('/phones/brand/iphone', phoneController.getIphones);
+
 router.get('/phones/brand/samsung', phoneController.getSamsungs);
 
 module.exports = router;
